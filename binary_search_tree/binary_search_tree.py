@@ -9,6 +9,9 @@ This part of the project comprises two days:
 2. Implement the `in_order_print`, `bft_print`, and `dft_print` methods
    on the BSTNode class.
 """
+
+from queue import Queue
+from stack import Stack
 class BSTNode:
     def __init__(self, value):
         self.value = value
@@ -98,6 +101,8 @@ class BSTNode:
 
     # Return the maximum value found in the tree
     def get_max(self):
+        if not self:
+            return None
         current = self
         while current.right is not None:
             current = current.right
@@ -121,17 +126,51 @@ class BSTNode:
     # Print all the values in order from low to high
     # Hint:  Use a recursive, depth first traversal
     def in_order_print(self):
-        pass
+        if self.value is None:
+            pass
+
+        if self.left is not None:
+            self.left.in_order_print()
+        
+        print(self.value)
+
+        if self.right is not None:
+            self.right.in_order_print()
+
+
 
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
     def bft_print(self):
-        pass
+        queue = Queue()
+        queue.enqueue(self)
+
+        while queue:
+            current = queue.dequeue()
+            print(current.value)
+
+            if current.left:
+                queue.enqueue(current.left)
+
+            if current.right:
+                queue.enqueue(current.right)
 
     # Print the value of every node, starting with the given node,
     # in an iterative depth first traversal
     def dft_print(self):
-        pass
+        queue = Stack()
+        queue.push(self)
+
+        while queue:
+            current = queue.pop()
+            print(current.value)
+
+            if current.left:
+                queue.push(current.left)
+
+            if current.right:
+                queue.push(current.right)
+
 
     # Stretch Goals -------------------------
     # Note: Research may be required
@@ -157,8 +196,8 @@ bst.insert(3)
 bst.insert(4)
 bst.insert(2)
 
-# bst.bft_print()
-# bst.dft_print()
+bst.bft_print()
+bst.dft_print()
 
 # print("elegant methods")
 # print("pre order")
