@@ -54,6 +54,5 @@ class Queue:
         if self.size == 0:
             return None
         else:
-            popped = self.storage.remove_head()
             self.size -= 1
-            return popped
+            return self.storage.remove_head()
